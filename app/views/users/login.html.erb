@@ -1,0 +1,42 @@
+<h2>Welcome!</h2>
+
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+  <h4> <%= error[1][0] unless error[0] == "password" %> </h4>
+  <h4> <%= error[1][1] if error[0] == "password" %> </h4>
+  <% end %>
+<% end %>
+
+<div class="">
+  <form action="/login_user" method="post">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <p>Email: <input type="text" name="email"></p>
+    <p>Password: <input type="text" name="password"></p>
+    <input type="submit" name="" value="Log in">
+  </form>
+</div>
+<div class="">
+  <form  action="/create_user" method="post">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <p>First Name: <input type="text" name="f_name"></p>
+    <p>Last Name: <input type="text" name="l_name"></p>
+    <p>Email: <input type="text" name="email"></p>
+    <p>Location: <input type="text" name="city">
+    <select class="" name="state">
+      <option value="AL">AL</option>
+      <option value="AR">AR</option>
+      <option value="IL">IL</option>
+      <option value="IN">IN</option>
+      <option value="PA">PA</option>
+      <option value="UT">UT</option>
+      <option value="CA">CA</option>
+      <option value="DE">DE</option>
+      <option value="LA">LA</option>
+      <option value="ME">ME</option>
+      <option value="MA">MA</option>
+    </select> </p>
+    <p>Password: <input type="text" name="password"></p>
+    <p>Confirm Password: <input type="text" name="password_confirm"></p>
+    <input type="submit" name="registerBtn" value="Register">
+  </form>
+</div>

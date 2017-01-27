@@ -1,0 +1,71 @@
+<h1>Welcome, <%= @user.f_name %></h1>
+<a href="/logout">Logout</a> <a href="/user/<%= @user.id %>">Edit My Profile</a>
+
+<h3>Here are some of the events at your state:</h3>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>Location</th>
+    <th>Host</th>
+    <th>Action/Status</th>
+  </tr>
+  <% @state_events.each do |event| %>
+    <tr>
+      <td><%= event.name %></td>
+      <td><%= event.date.strftime('%B %d, %Y') %></td>
+      <td><%= event.city %></td>
+      <td><%= event.creator.f_name %></td>
+      <td><a href="/edit">Edit</a></td>
+    </tr>
+  <% end %>
+</table>
+
+<h3>Here are some of the events of other states:</h3>
+
+<table>
+  <tr>
+    <th>Name</th>
+    <th>Date</th>
+    <th>City</th>
+    <th>State</th>
+    <th>Host</th>
+    <th>Action</th>
+  </tr>
+  <% @out_of_state_events.each do |event| %>
+    <tr>
+      <td><%= event.name %></td>
+      <td><%= event.date.strftime('%B %d, %Y') %></td>
+      <td><%= event.city %></td>
+      <td><%= event.state %></td>
+      <td><%= event.creator.f_name %></td>
+      <td><a href="/edit">Edit</a></td>
+    </tr>
+  <% end %>
+</table>
+<% if flash[:errors] %>
+  <% flash[:errors].each do |error| %>
+  <h4> <%= error[1][0] %> </h4>
+  <% end %>
+<% end %>
+<form class="" action="/create_event" method="post">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <p>Name <input type="text" name="name" value=""> </p>
+    <p>Date <input type="date" name="date" value=""> </p>
+    <p>Location <input type="text" name="city" value="">
+      <select class="" name="state">
+        <option value="AL">AL</option>
+        <option value="AR">AR</option>
+        <option value="IL">IL</option>
+        <option value="IN">IN</option>
+        <option value="PA">PA</option>
+        <option value="UT">UT</option>
+        <option value="CA">CA</option>
+        <option value="DE">DE</option>
+        <option value="LA">LA</option>
+        <option value="ME">ME</option>
+        <option value="MA">MA</option>
+      </select> </p>
+      <input type="submit" name="eventBtn" value="Add Event">
+</form>
